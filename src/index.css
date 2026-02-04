@@ -1,0 +1,460 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', 'NHaasGroteskDSPro-65Md', sans-serif !important;
+  background: #000000;
+  color: #1c1c1e;
+}
+
+code {
+  font-family: 'Source Code Pro', monospace;
+}
+
+/* Navbar.css */
+.navbar {
+  background: linear-gradient(90deg, #ff416c, #ff4b2b); /* luxurious gradient */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+  padding: 0.8rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #ff416c; /* subtle gradient color later via span if needed */
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  color: #333 !important;
+  font-weight: 500;
+  margin: 0 0.8rem;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* Buttons inside Navbar */
+.navbar .btn {
+  border-radius: 50px;
+  padding: 0.4rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  /* Glassmorphism effect */
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent */
+  backdrop-filter: blur(10px);          /* blur the background behind it */
+  -webkit-backdrop-filter: blur(10px);  /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* subtle border */
+  color: #ffffff;                           /* text color */
+}
+
+.navbar .btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+
+input[type="search"] {
+  border-radius: 50px;
+  padding: 0.5rem 1.2rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  border: none;
+  outline: none;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+input[type="search"]:focus {
+  box-shadow: 0 8px 20px rgba(255, 75, 43, 0.3);
+  transform: scale(1.03);
+}
+
+/* Card.css */
+.card {
+  border-radius: 1.2rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background: #fff;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 180px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.card-img-top:hover {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1c1c1e;
+}
+
+.btn-success {
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+  border: none;
+  border-radius: 50px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255,65,108,0.3);
+}
+
+
+#carousel {
+  max-height: 500px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+input[type="search"] {
+  border-radius: 50px;
+  padding: 0.5rem 1.2rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border: none;
+  outline: none;
+  transition: box-shadow 0.3s, transform 0.2s;
+  background: #fff;
+  color: #333;
+}
+
+input[type="search"]:focus {
+  box-shadow: 0 8px 20px rgba(255,65,108,0.2);
+  transform: scale(1.02);
+}
+
+/* ---------- Glassmorphic Food Card ---------- */
+.card-container {
+  width: 100%;
+  max-width: 320px;
+  margin: 1.5rem auto;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-container:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+}
+
+.hero-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.hero-image-container:hover .hero-image {
+  transform: scale(1.05);
+}
+
+.main-content {
+  padding: 1rem 1.2rem;
+}
+
+.main-content h1 {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 0;
+}
+h3{
+  color: #fff;
+  font-size: 2rem;
+}
+
+hr{
+  border: none;
+  height: 1px;
+  color: #ff416c;
+  margin: 0.8rem 0;
+}
+.main-content p {
+  font-size: 0.9rem;
+  color: #dcdcdc;
+  margin-bottom: 0.8rem;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.glass-select {
+  border-radius: 12px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 500;
+
+  /* Glass base */
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  outline: none;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.glass-select:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 209, 65, 0.7);
+  box-shadow: 0 6px 20px rgba(255, 208, 65, 0.25);
+}
+
+/* Focus (keyboard / click) */
+.glass-select:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #ffd041;
+  box-shadow: 0 0 0 2px rgba(255, 208, 65, 0.4);
+}
+
+/* Dropdown options */
+.glass-select option {
+  background: #1c1c1e;   /* dark dropdown */
+  color: #ffffff;
+}
+
+
+.price-tag {
+  position: relative;
+  z-index: 2;
+
+  font-weight: 700;
+  font-size: 1.25rem;
+
+  background: linear-gradient(90deg, #ffd041, #ffc801);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+
+.price-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  background: rgba(126, 126, 126, 0.189);
+
+  border: 1.5px solid rgba(255, 65, 108, 0.65); /* 🔴 red glass border */
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15),
+    inset 0 0 0.5px rgba(255,255,255,0.4);
+}
+
+
+
+
+.glass-btn {
+  width: calc(100% - 2.4rem);
+  margin: 1rem 1.2rem;
+  padding: 0.5rem;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  background: radial-gradient(circle at top center, rgb(238,176,0),rgb(162, 97, 0));
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.glass-btn:hover {
+  background: radial-gradient(circle at top center, rgb(238,176,0),rgb(162, 97, 0));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(197, 141, 0, 0.26);
+}
+
+
+/* ---------- Glassmorphic Food Card ---------- */
+
+
+.food-carousel {
+  padding: 2rem 1rem;
+}
+
+.carousel-card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.4s ease;
+}
+
+.carousel-card:hover {
+  transform: translateY(1px) scale(1.01);
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.carousel-card h4 {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.tee {
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.tee2 {
+  color: #000000;
+  font-size: 2rem;
+}
+
+
+.teee {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+
+.custom-pizza-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.custom-pizza-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+}
+
+.custom-pizza-card:active {
+  transform: scale(0.97);
+}
+
+
+.view-cursor{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--cursor-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 99999;
+}
+
+.view-cursor.show {
+  opacity: 1;
+}
+
+.view-cursor-inner {
+  position: absolute;
+  inset: 35%;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.view-text {
+  position: absolute;
+  inset: 0;
+  animation: spin 8s linear infinite;
+}
+
+.view-text svg{
+  width: 100%;
+  height: 100%;
+  fill: #fff;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.pizza-card {
+  transition: transform 0.3s ease;
+}
+
+.pizza-card:hover {
+  transform: translateY(-6px);
+}
+
+.mar{
+  margin: 0;
+}
+
+.white{
+  margin-top: 1rem;
+  color: #fff;
+}
+
+.mt-3 a{
+  margin-bottom: 1rem;
+  color: #00e5ff;
+}
+
+.m-5, h5{
+  color: #fff;
+}
+
