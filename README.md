@@ -1,70 +1,133 @@
-# Getting Started with Create React App
+# 🍕 Crustify — Full Stack Food Ordering App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Crustify is a modern **MERN stack** food ordering web app where users can browse items, customize pizzas, manage cart, and place orders securely with authentication.
 
-## Available Scripts
+---
+![MERN](https://img.shields.io/badge/Stack-MERN-green)
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![Node](https://img.shields.io/badge/Backend-Node.js-darkgreen)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![Status](https://img.shields.io/badge/Project-Active-success)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🌐 Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[![Live Site](https://img.shields.io/badge/Visit-Live%20App-red?style=for-the-badge)](https://your-deployment-link.com)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 👤 Authentication
+- User Signup & Login (JWT based)
+- Password protected routes
+- Auth middleware verification
+- Email sending support (via Nodemailer)
 
-### `npm run build`
+### 🛒 Cart System
+- Add / Update / Remove items
+- Custom Pizza support
+- Quantity & size based pricing
+- Persistent state using Context API
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🍕 Food Ordering
+- Category based filtering
+- Dynamic item cards
+- Veg / Non-Veg indicators
+- Custom Pizza Builder
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 📦 Orders
+- Checkout system
+- Orders stored in MongoDB
+- Order history (My Orders)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🎨 UI/UX
+- Bootstrap Dark Theme
+- Animated cursor for Veg / Non-Veg
+- Carousel offers section
+- Responsive design
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🏗 Tech Stack
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Frontend | Backend | Database | Other |
+|----------|---------|----------|------|
+| React.js | Node.js | MongoDB | JWT |
+| Bootstrap | Express.js | Mongoose | Nodemailer |
+| Context API | REST APIs | | |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📂 Project Structure
 
-## Learn More
+```bash
+├── 📁 backend
+│   ├── 📁 middleware
+│   │   ├── 📄 fetchdetails.js
+│   ├── 📁 models
+│   │   ├── 📄 Orders.js
+│   │   ├── 📄 User.js
+│   ├── 📁 Routes
+│   │   ├── 📄 Auth.js
+│   │   ├── 📄 payment.js
+│   ├── 📁 utils
+│   │   ├── 📄 mailer.js
+│   ├── 📄 .env
+│   ├── 📄 db.js
+│   ├── 📄 index.js
+│   ├── 📄 LICENSE
+│   ├── 📄 package-lock.json
+│   ├── 📄 package.json
+├── 📁 public
+│   ├── 📄 favicon.ico
+│   ├── 📄 index.html
+│   ├── 📄 logo192.png
+│   ├── 📄 logo512.png
+│   ├── 📄 manifest.json
+│   ├── 📄 robots.txt
+├── 📁 src
+│   ├── 📁 components
+│   │   ├── 📁 Images
+│   │   ├── 📄 Card.js
+│   │   ├── 📄 Carousel.js
+│   │   ├── 📄 ContextReducer.js
+│   │   ├── 📄 FoodCarousel.js
+│   │   ├── 📄 Footer.js
+│   │   ├── 📄 Navbar.js
+│   ├── 📁 data
+│   │   ├── 📄 offers.js
+│   ├── 📁 screens
+│   │   ├── 📄 Cart.js
+│   │   ├── 📄 Home.js
+│   │   ├── 📄 Login.js
+│   │   ├── 📄 MyOrder.js
+│   │   ├── 📄 Signup.js
+│   │   ├── 📄 VerifyEmail.js
+│   ├── 📄 App.css
+│   ├── 📄 App.js
+│   ├── 📄 App.test.js
+│   ├── 📄 index.css
+│   ├── 📄 index.js
+│   ├── 📄 logo.svg
+│   ├── 📄 Modal.js
+│   ├── 📄 reportWebVitals.js
+│   ├── 📄 setupTests.js
+├── 📄 .gitignore
+├── 📄 package-lock.json
+├── 📄 package.json
+├── 📄 README.md
+├── 📄 tree.txt
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+## 📂 Inside Backend Folder Create .env file
+```bash
+MONGO_URI=your_mongodb_connection
+JWT_SECRET=your_secret_key
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+EMAIL=your_email@gmail.com
+EMAIL_PASS=your_app_password
+```
