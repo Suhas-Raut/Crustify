@@ -31,7 +31,7 @@ export default function Inventory() {
     <>
       <AdminNavbar />
       <div className="container mt-4">
-        <h2>📦 Inventory</h2>
+        <h2 className="admin-h">📦 Inventory</h2>
 
         {Object.keys(inventory).map(key =>
           !["_id", "__v"].includes(key) && (

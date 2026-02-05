@@ -23,7 +23,7 @@ export default function Dashboard() {
     <>
       <AdminNavbar />
       <div className="container mt-4">
-        <h2>📊 Admin Dashboard</h2>
+        <h2 className="admin-h">📊 Admin Dashboard</h2>
 
         <div className="row mt-4">
           <StatCard title="Total Orders" value={stats.orders} icon="📦" />

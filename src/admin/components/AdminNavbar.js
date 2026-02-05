@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 export default function AdminNavbar() {
@@ -12,14 +13,23 @@ const logout = () => {
 
 
   return (
-    <nav className="navbar navbar-dark bg-dark px-4">
-      <span className="navbar-brand">🍕 Pizza Admin</span>
+    <nav className="admin-navbar navbar navbar-dark bg-dark px-4">
+      <span className="navbar-brand">🍕 Crustify Admin</span>
 
-      <div>
-      <Link to="/admin/dashboard">Dashboard</Link>
-      <Link to="/admin/inventory">Inventory</Link>
-      <Link to="/admin/orders">Orders</Link>
+      <div className="admin-right">
+      <div className="admin-nav-links">
+        <NavLink to="/admin/dashboard" className="admin-link">
+          Dashboard
+        </NavLink>
 
+        <NavLink to="/admin/inventory" className="admin-link">
+          Inventory
+        </NavLink>
+
+        <NavLink to="/admin/orders" className="admin-link">
+          Orders
+        </NavLink>
+      </div>
         <button onClick={logout} className="btn btn-danger">
           Logout
         </button>

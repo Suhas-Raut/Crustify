@@ -31,7 +31,7 @@ export default function Orders() {
     <>
       <AdminNavbar />
       <div className="container mt-4">
-        <h2>📋 Orders</h2>
+        <h2 className="admin-h">📋 Orders</h2>
 
         {orders.map(order => (
           <div key={order._id} className="card mb-3 p-3">

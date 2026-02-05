@@ -458,3 +458,70 @@ hr{
   color: #fff;
 }
 
+.admin-navbar {
+  position: fixed;      /* 🔥 key */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 84px;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+  z-index: 1000;
+}
+
+.admin-nav-links {
+  display: flex;
+  gap: 16px;
+}
+
+.admin-link {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+
+  background: #222;
+  color: white;
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+}
+
+.admin-link:hover {
+  background: #333;
+}
+
+.admin-link.active {
+  background: #ffffff;   /* active page highlight */
+  color: black;
+}
+
+/* Alignment of admin navbar */
+.admin-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: darkred;
+}
+
+.admin-h{
+  color: #fff;
+}
