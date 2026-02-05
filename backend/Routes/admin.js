@@ -1,30 +1,24 @@
 const express = require("express");
 const router = express.Router();
-
 const Inventory = require("../models/Inventory");
 const fetchdetails = require("../middleware/fetchdetails");
 const isAdmin = require("../middleware/isAdmin");
 
-/**
- * 1️⃣ GET INVENTORY (Admin Dashboard)
- */
+// GET INVENTORY
 router.get("/inventory", fetchdetails, isAdmin, async (req, res) => {
   try {
     let inventory = await Inventory.findOne();
 
+    // 👇 AUTO CREATE if not exists
     if (!inventory) {
-      inventory = await Inventory.create({
-        pizzaBase: 100,
-        sauce: 100,
-        cheese: 100,
-        veggies: 100,
-        meat: 100
-      });
+      inventory = new Inventory({});
+      await inventory.save();
     }
 
     res.json(inventory);
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });
 
@@ -35,16 +29,60 @@ router.put("/inventory", fetchdetails, isAdmin, async (req, res) => {
   try {
     const updates = req.body;
 
-    const inventory = await Inventory.findOneAndUpdate(
-      {},
-      { $set: updates },
-      { new: true }
-    );
+    let inventory = await Inventory.findOne();
+    if (!inventory) {
+      inventory = await Inventory.create({});
+    }
 
+    Object.keys(updates).forEach(category => {
+      inventory[category] = {
+        ...inventory[category],
+        ...updates[category]
+      };
+    });
+
+    await inventory.save();
     res.json({ success: true, inventory });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
+});
+
+const Order = require("../models/Orders");
+
+// 3️⃣ GET ALL ORDERS
+router.get("/orders", fetchdetails, isAdmin, async (req, res) => {
+  const orders = await Order.find().sort({ createdAt: -1 });
+  res.json(orders);
+});
+
+// 4️⃣ UPDATE ORDER STATUS
+router.put("/order/:id", fetchdetails, isAdmin, async (req, res) => {
+  const order = await Order.findByIdAndUpdate(
+    req.params.id,
+    { status: req.body.status },
+    { new: true }
+  );
+  res.json(order);
+});
+
+// 5️⃣ DASHBOARD STATS
+router.get("/stats", fetchdetails, isAdmin, async (req, res) => {
+  const orders = await Order.find();
+  const revenue = orders.reduce((sum, o) => sum + (o.amount || 0), 0);
+
+  res.json({
+    orders: orders.length,
+    revenue,
+    lowStock: 3
+  });
+});
+router.post("/inventory/init", fetchdetails, isAdmin, async (req, res) => {
+  const exists = await Inventory.findOne();
+  if (exists) return res.json(exists);
+
+  const inventory = await Inventory.create({});
+  res.json(inventory);
 });
 
 module.exports = router;
