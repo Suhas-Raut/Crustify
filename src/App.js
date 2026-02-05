@@ -8,6 +8,11 @@ import Signup from './screens/Signup';
 import MyOrder from './screens/MyOrder';
 import Cart from './screens/Cart';
 import VerifyEmail from "./screens/VerifyEmail";
+import AdminRoutes from "./admin/AdminRoutes";
+import AdminLogin from "./admin/pages/AdminLogin";
+import Dashboard from "./admin/pages/Dashboard";
+import Inventory from "./admin/pages/Inventory";
+import Orders from "./admin/pages/Orders";
 
 
 import {
@@ -29,6 +34,39 @@ function App() {
           <Route exact path="/myorder" component={MyOrder} />
           <Route exact path="/cart" component={Cart} />
           <Route path="/verify-email" component={VerifyEmail} />
+
+         <Route exact path="/admin/login" component={AdminLogin} />
+
+<Route
+  exact
+  path="/admin/dashboard"
+  render={() => (
+    <AdminRoutes>
+      <Dashboard />
+    </AdminRoutes>
+  )}
+/>
+
+<Route
+  exact
+  path="/admin/inventory"
+  render={() => (
+    <AdminRoutes>
+      <Inventory />
+    </AdminRoutes>
+  )}
+/>
+
+<Route
+  exact
+  path="/admin/orders"
+  render={() => (
+    <AdminRoutes>
+      <Orders />
+    </AdminRoutes>
+  )}
+/>
+
         </Switch>
       </Router>
     </CartProvider>

@@ -112,7 +112,11 @@ router.post('/login', [
     const authToken = jwt.sign(data, jwtSecret);
     success = true;
 
-    res.json({ success, authToken });
+res.json({
+  success: true,
+  authToken,
+  isAdmin: user.role === "admin"
+});
 
   } catch (error) {
     console.error(error.message);

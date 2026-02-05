@@ -59,6 +59,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", require("./Routes/Auth"));
 app.use("/api/payment", paymentRoutes);
+app.use("/api/admin", require("./Routes/admin"));
 
 
 
