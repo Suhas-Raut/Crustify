@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-  email: { type: String, required: true },
-  order_data: { type: Array, required: true },
-  status: { type: String, default: "Order Received" },
-  paymentId: String,
-  amount: Number
+  userId: mongoose.Schema.Types.ObjectId,
+  userEmail: String,
+  items: [
+    {
+      name: String,
+      qty: Number
+    }
+  ],
+  totalAmount: Number,
+  status: {
+    type: String,
+    default: "Order Received"
+  }
 }, { timestamps: true });
 
-module.exports = mongoose.model("Order", OrderSchema);
+module.exports = mongoose.model("Orders", OrderSchema);

@@ -60,12 +60,25 @@ router.post("/verify-payment", async (req, res) => {
       amount: totalAmount
     });
 
-    // ✅ UPDATE INVENTORY (basic example)
-    const inventory = await Inventory.findOne();
-    if (inventory) {
-      inventory.cheese.mozzarella -= 1;
-      inventory.save();
-    }
+    
+   // ✅ UPDATE INVENTORY (REAL deduction)
+const inventory = await Inventory.findOne();
+if (!inventory) {
+  return res.status(500).json({ success: false, message: "Inventory not found" });
+}
+
+orderData.forEach(item => {
+  const key = item.name.replace(/\s+/g, "").toLowerCase();
+
+  // unified storage bucket
+  if (inventory.stock[key] !== undefined) {
+    inventory.stock[key] -= item.qty;
+    if (inventory.stock[key] < 0) inventory.stock[key] = 0;
+  }
+});
+
+await inventory.save();
+
 
     // ✅ SEND MAIL
     await sendMail({

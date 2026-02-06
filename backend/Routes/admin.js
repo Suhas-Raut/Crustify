@@ -4,49 +4,25 @@ const Inventory = require("../models/Inventory");
 const fetchdetails = require("../middleware/fetchdetails");
 const isAdmin = require("../middleware/isAdmin");
 
-// GET INVENTORY
 router.get("/inventory", fetchdetails, isAdmin, async (req, res) => {
   try {
     let inventory = await Inventory.findOne();
 
-    // 👇 AUTO CREATE if not exists
     if (!inventory) {
-      inventory = new Inventory({});
-      await inventory.save();
+      inventory = await Inventory.create({ items: {} });
     }
 
-    res.json(inventory);
+    res.json({
+      success: true,
+      inventory
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server Error");
   }
 });
 
-/**
- * 2️⃣ UPDATE INVENTORY (Refill / Adjust)
- */
-router.put("/inventory", fetchdetails, isAdmin, async (req, res) => {
-  try {
-    const updates = req.body;
 
-    let inventory = await Inventory.findOne();
-    if (!inventory) {
-      inventory = await Inventory.create({});
-    }
-
-    Object.keys(updates).forEach(category => {
-      inventory[category] = {
-        ...inventory[category],
-        ...updates[category]
-      };
-    });
-
-    await inventory.save();
-    res.json({ success: true, inventory });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
 
 const Order = require("../models/Orders");
 
@@ -58,13 +34,34 @@ router.get("/orders", fetchdetails, isAdmin, async (req, res) => {
 
 // 4️⃣ UPDATE ORDER STATUS
 router.put("/order/:id", fetchdetails, isAdmin, async (req, res) => {
-  const order = await Order.findByIdAndUpdate(
+
+  const { status } = req.body;
+
+  const order = await Orders.findByIdAndUpdate(
     req.params.id,
-    { status: req.body.status },
+    { status },
     { new: true }
   );
-  res.json(order);
+
+  if (status === "In Kitchen") {
+    await sendMail(
+      order.userEmail,
+      "👨‍🍳 Order in Kitchen",
+      "Your order is being prepared."
+    );
+  }
+
+  if (status === "Sent to Delivery") {
+    await sendMail(
+      order.userEmail,
+      "🚚 Out for Delivery",
+      "Your order is on the way!"
+    );
+  }
+
+  res.json({ success: true, order });
 });
+
 
 // 5️⃣ DASHBOARD STATS
 router.get("/stats", fetchdetails, isAdmin, async (req, res) => {
@@ -86,25 +83,29 @@ router.post("/inventory/init", fetchdetails, isAdmin, async (req, res) => {
 });
 
 
-// SAVE / UPDATE INVENTORY
-router.post("/inventory", async (req, res) => {
+router.post("/inventory", fetchdetails, isAdmin, async (req, res) => {
   try {
-    const data = req.body;
-
     let inventory = await Inventory.findOne();
-    if (!inventory) {
-      inventory = new Inventory({ items: data });
-    } else {
-      inventory.items = data;
-    }
+    if (!inventory) inventory = new Inventory({});
 
+    inventory.items = Object.fromEntries(
+      Object.entries(req.body).map(([key, value]) => [
+        key,
+        Number(value)
+      ])
+    );
+
+    inventory.updatedAt = new Date();
     await inventory.save();
+
     res.json({ success: true });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false });
   }
 });
+
+
 
 
 

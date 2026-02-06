@@ -16,7 +16,7 @@ export default function Login() {
 
     const json = await response.json();
     if (json.success) {
-      localStorage.setItem('token', json.authToken);
+      localStorage.setItem("token", json.authToken);
       localStorage.setItem("userEmail", credentials.email); 
       history.push("/");
     } else {

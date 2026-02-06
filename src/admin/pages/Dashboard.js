@@ -12,7 +12,7 @@ export default function Dashboard() {
   useEffect(() => {
     fetch("http://localhost:5000/api/admin/stats", {
       headers: {
-        "auth-token": localStorage.getItem("token")
+        "auth-token": localStorage.getItem("adminToken")
       }
     })
       .then(res => res.json())

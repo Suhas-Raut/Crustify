@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
 
 export default function Inventory() {
@@ -106,6 +106,32 @@ const inventoryData = {
 };
 
 
+const fetchInventory = async () => {
+  try {
+    const res = await fetch("http://localhost:5000/api/admin/inventory", {
+      headers: {
+        "auth-token": localStorage.getItem("adminToken")
+      }
+    });
+
+    const data = await res.json();
+    console.log("📦 INVENTORY FROM API:", data);
+
+    if (data.success && data.inventory?.items) {
+      setStock(JSON.parse(JSON.stringify(data.inventory.items)));
+
+    }
+  } catch (err) {
+    console.error("Inventory fetch failed", err);
+  }
+};
+
+useEffect(() => {
+  fetchInventory();
+}, []);
+
+
+
   const [stock, setStock] = useState({});
 
   const handleChange = (item, value) => {
@@ -121,7 +147,7 @@ const saveInventory = async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token")
+        "auth-token": localStorage.getItem("adminToken")
       },
       body: JSON.stringify(stock)
     });
@@ -153,6 +179,13 @@ const getStockStatus = (qty = 0) => {
       <div className="container mt-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
   <h2 className="admin-h mb-0">📦 Inventory Management</h2>
+    <div className="d-flex gap-2">
+  <button
+    className="btn btn-outline-info btn-sm"
+    onClick={fetchInventory}
+  >
+    🔄 Fetch Inventory
+  </button>
 
   <button
     className="btn btn-success btn-sm"
@@ -160,6 +193,8 @@ const getStockStatus = (qty = 0) => {
   >
     💾 Save Inventory
   </button>
+</div>
+
 </div>
 
 
@@ -253,12 +288,23 @@ const getStockStatus = (qty = 0) => {
           </div>
         ))}
 
-        <button
-          className="btn btn-success w-100 mt-4 mb-5"
-          onClick={saveInventory}
-        >
-          💾 Save Inventory
-        </button>
+<div className="d-flex gap-2 mt-4 mb-5">
+  <button
+    className="btn btn-outline-info w-50"
+    onClick={fetchInventory}
+  >
+    🔄 Fetch Inventory
+  </button>
+
+  <button
+    className="btn btn-success w-50"
+    onClick={saveInventory}
+  >
+    💾 Save Inventory
+  </button>
+</div>
+
+
       </div>
     </>
   );

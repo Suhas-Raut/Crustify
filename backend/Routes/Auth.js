@@ -109,7 +109,12 @@ router.post('/login', [
       user: { id: user.id }
     };
 
-    const authToken = jwt.sign(data, jwtSecret);
+    const authToken = jwt.sign(
+  data,
+  process.env.JWT_SECRET,
+  { expiresIn: "7d" }
+);
+
     success = true;
 
 res.json({

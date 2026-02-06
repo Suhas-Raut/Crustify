@@ -1,20 +1,20 @@
-var jwt = require('jsonwebtoken');
-const jwtSecret = process.env.JWT_SECRET;
-const fetch = (req,res,next)=>{
-    // get the user from the jwt token and add id to req object
-    const token = req.header('auth-token');
-    if(!token){
-        res.status(401).send({error:"Invalid Auth Token"})
+const jwt = require("jsonwebtoken");
 
-    }
-    try {
-        const data = jwt.verify(token,jwtSecret);
-        req.user = data.user
-        next();
-        
-    } catch (error) {
-        res.status(401).send({error:"Invalid Auth Token"})
-    }
+module.exports = function (req, res, next) {
+  const token = req.header("auth-token");
 
-}
-module.exports = fetch
+  console.log("🔐 TOKEN RECEIVED:", token);
+
+  if (!token) {
+    return res.status(401).json({ error: "Invalid Auth Token" });
+  }
+
+  try {
+    const data = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = data.user;
+    next();
+  } catch (err) {
+    console.error("❌ JWT ERROR:", err.message);
+    res.status(401).json({ error: "Invalid Auth Token" });
+  }
+};
