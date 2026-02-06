@@ -115,11 +115,35 @@ const inventoryData = {
     }));
   };
 
-  const saveInventory = () => {
-    console.log("Inventory Saved:", stock);
-    alert("Inventory saved ✅ (frontend test)");
-  };
+const saveInventory = async () => {
+  try {
+    const res = await fetch("http://localhost:5000/api/admin/inventory", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token")
+      },
+      body: JSON.stringify(stock)
+    });
 
+    const data = await res.json();
+    if (data.success) {
+      alert("Inventory saved to database ✅");
+    } else {
+      alert("Failed to save inventory ❌");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error ❌");
+  }
+};
+
+
+const getStockStatus = (qty = 0) => {
+  if (qty <= 20) return { text: "LOW", class: "badge bg-danger" };
+  if (qty <= 60) return { text: "Moderate", class: "badge bg-warning text-dark" };
+  return { text: "ABUNDANT", class: "badge bg-success" };
+};
 
   
   return (
@@ -127,7 +151,17 @@ const inventoryData = {
       <AdminNavbar />
 
       <div className="container mt-4">
-        <h2 className="admin-h mb-4">📦 Inventory Management</h2>
+        <div className="d-flex justify-content-between align-items-center mb-4">
+  <h2 className="admin-h mb-0">📦 Inventory Management</h2>
+
+  <button
+    className="btn btn-success btn-sm"
+    onClick={saveInventory}
+  >
+    💾 Save Inventory
+  </button>
+</div>
+
 
         {Object.entries(inventoryData).map(([category, items]) => (
           <div key={category} className="mb-5">
@@ -183,17 +217,19 @@ const inventoryData = {
                   <div className="glass-card p-3 h-100">
 
                     <div className="d-flex justify-content-between align-items-center mb-2">
-                      <h6 className="admin-h mb-0">{item.name}</h6>
-                      <span
-                        className={`badge ${
-                          item.type === "veg"
-                            ? "badge-veg"
-                            : "badge-nonveg"
-                        }`}
-                      >
+                    <h6 className="admin-h mb-0">{item.name}</h6>
+
+                    <div className="d-flex gap-1">
+                      <span className={`badge ${item.type === "veg" ? "badge-veg" : "badge-nonveg"}`}>
                         {item.type === "veg" ? "🟢 Veg" : "🔴 Non-Veg"}
                       </span>
+
+                      <span className={getStockStatus(stock[item.name]).class}>
+                        {getStockStatus(stock[item.name]).text}
+                      </span>
                     </div>
+                  </div>
+
 
                     <label className="admin-h form-label mt-2">
                       Stock Quantity
@@ -209,9 +245,6 @@ const inventoryData = {
                       }
                     />
 
-                    <button className="btn btn-outline-light btn-sm w-100 mt-3">
-                      ➕ Add Stock
-                    </button>
 
                   </div>
                 </div>

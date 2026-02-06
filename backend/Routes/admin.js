@@ -85,4 +85,27 @@ router.post("/inventory/init", fetchdetails, isAdmin, async (req, res) => {
   res.json(inventory);
 });
 
+
+// SAVE / UPDATE INVENTORY
+router.post("/inventory", async (req, res) => {
+  try {
+    const data = req.body;
+
+    let inventory = await Inventory.findOne();
+    if (!inventory) {
+      inventory = new Inventory({ items: data });
+    } else {
+      inventory.items = data;
+    }
+
+    await inventory.save();
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
+});
+
+
+
 module.exports = router;
