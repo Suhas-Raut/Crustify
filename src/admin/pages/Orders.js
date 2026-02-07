@@ -12,48 +12,44 @@ export default function Orders() {
     })
       .then(res => res.json())
       .then(data => {
-  if (Array.isArray(data)) {
-    setOrders(data);
-  } else if (Array.isArray(data.orders)) {
-    setOrders(data.orders);
-  } else {
-    setOrders([]);
-  }
-});
+        if (data.success && Array.isArray(data.orders)) {
+          setOrders(data.orders);
+        }
+      });
   }, []);
-
-  const updateStatus = async (id, status) => {
-    await fetch(`http://localhost:5000/api/admin/order/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("adminToken")
-      },
-      body: JSON.stringify({ status })
-    });
-
-    alert("Order status updated 🔄");
-  };
 
   return (
     <>
       <AdminNavbar />
       <div className="container mt-4">
-        <h2 className="admin-h">📋 Orders</h2>
+        <h2>📦 All Orders (Admin)</h2>
 
-        {Array.isArray(orders) && orders.map(order => (
-          <div key={order._id} className="card mb-3 p-3">
-            <h5>{order.userEmail}</h5>
-            <p>Status: <b>{order.status}</b></p>
+        {orders.map((user, uIndex) => (
+          <div key={uIndex} className="mb-5 border p-3">
+            <h5>📧 {user.email}</h5>
 
-            <select
-              className="form-select"
-              onChange={(e) => updateStatus(order._id, e.target.value)}
-            >
-              <option>Order Received</option>
-              <option>In Kitchen</option>
-              <option>Sent to Delivery</option>
-            </select>
+            {user.order_data
+              .slice(0)
+              .reverse()
+              .map((order, oIndex) => (
+                <div key={oIndex} className="mt-3">
+                  {order.map((item, i) => {
+                    if (item.Order_date) {
+                      return (
+                        <h6 key={i} className="mt-3">
+                          🗓 {item.Order_date}
+                        </h6>
+                      );
+                    }
+
+                    return (
+                      <div key={i} className="ps-3">
+                        • {item.name} × {item.qty} — ₹{item.price}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
           </div>
         ))}
       </div>

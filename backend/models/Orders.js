@@ -1,18 +1,13 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-  userId: mongoose.Schema.Types.ObjectId,
-  userEmail: String,
-  items: [
-    {
-      name: String,
-      qty: Number
-    }
-  ],
-  totalAmount: Number,
-  status: {
+  email: {
     type: String,
-    default: "Order Received"
+    required: true
+  },
+  order_data: {
+    type: Array,
+    required: true
   }
 }, { timestamps: true });
 
