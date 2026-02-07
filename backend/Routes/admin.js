@@ -112,6 +112,46 @@ router.post("/inventory", fetchdetails, isAdmin, async (req, res) => {
 });
 
 
+// Sending email function
+const sendMail = require("../utils/mailer");
+const Order = require("../models/Orders");
+
+router.put("/order-status", fetchdetails, isAdmin, async (req, res) => {
+  try {
+    const { userEmail, orderIndex, status } = req.body;
+
+    const userOrders = await Order.findOne({ email: userEmail });
+    if (!userOrders) {
+      return res.status(404).json({ success: false });
+    }
+
+    // update status inside meta object
+    userOrders.order_data[orderIndex][0].status = status;
+    await userOrders.save();
+
+    // 📧 EMAIL NOTIFICATIONS
+    if (status === "In Kitchen") {
+      await sendMail(
+        userEmail,
+        "👨‍🍳 Order in Kitchen",
+        "Your order is now being prepared."
+      );
+    }
+
+    if (status === "Out for Delivery") {
+      await sendMail(
+        userEmail,
+        "🚚 Out for Delivery",
+        "Your order is on the way!"
+      );
+    }
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
+});
 
 
 

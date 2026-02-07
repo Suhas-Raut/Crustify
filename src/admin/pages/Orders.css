@@ -1,0 +1,139 @@
+/* PAGE */
+.adminOrdersPage {
+  padding: 30px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.adminOrdersTitle {
+  color: #fff;
+  font-size: 26px;
+  margin-bottom: 25px;
+}
+
+/* GRID */
+.adminOrdersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* GLASS CARD */
+.glassCard {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  padding: 18px;
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glassCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* HEADER */
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.orderEmail {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.orderStatus {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* STATUS COLORS */
+.status-placed {
+  background: rgba(255, 193, 7, 0.3);
+  color: #ffc107;
+}
+
+.status-inkitchen {
+  background: rgba(255, 152, 0, 0.3);
+  color: #ff9800;
+}
+
+.status-outfordelivery {
+  background: rgba(76, 175, 80, 0.3);
+  color: #4caf50;
+}
+
+/* DATE */
+.orderDate {
+  font-size: 13px;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+/* ITEMS */
+.orderItems {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 0;
+  margin-bottom: 12px;
+}
+
+.orderItem {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* ACTIONS */
+.orderActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* BUTTONS */
+.orderBtn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.warningBtn {
+  background: rgba(255, 193, 7, 0.85);
+  color: #000;
+}
+
+.warningBtn:hover {
+  background: rgba(255, 193, 7, 1);
+}
+
+.successBtn {
+  background: rgba(76, 175, 80, 0.9);
+  color: #fff;
+}
+
+.successBtn:hover {
+  background: rgba(76, 175, 80, 1);
+}
+
+/* DELIVERED */
+.deliveredBadge {
+  padding: 6px 12px;
+  background: rgba(158, 158, 158, 0.4);
+  border-radius: 12px;
+  font-size: 13px;
+}
