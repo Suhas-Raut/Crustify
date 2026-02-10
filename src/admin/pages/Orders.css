@@ -137,3 +137,20 @@
   border-radius: 12px;
   font-size: 13px;
 }
+
+.orderMetaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.orderDate {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.orderActions {
+  display: flex;
+  gap: 10px;
+}

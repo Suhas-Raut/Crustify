@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const Order = require("../models/Orders");
 const Inventory = require("../models/Inventory");
 const sendMail = require("../utils/mailer");
+const mongoose = require("mongoose");
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -52,13 +53,33 @@ router.post("/verify-payment", async (req, res) => {
     }
 
     // ✅ SAVE ORDER
-    const newOrder = await Order.create({
-      email,
-      order_data: orderData,
-      status: "Order Received",
-      paymentId: razorpay_payment_id,
-      amount: totalAmount
-    });
+   // 🔥 CREATE ORDER BLOCK (VERY IMPORTANT)
+const orderBlock = [
+  {
+    orderId: new mongoose.Types.ObjectId().toString(),
+    Order_date: new Date().toDateString(),
+    status: "Placed"
+  },
+  ...orderData
+];
+
+// ✅ SAVE ORDER (PER USER)
+let userOrder = await Order.findOne({ email });
+
+if (userOrder) {
+  userOrder.order_data.push(orderBlock);
+  userOrder.paymentId = razorpay_payment_id;
+  userOrder.amount = totalAmount;
+  await userOrder.save();
+} else {
+  userOrder = await Order.create({
+    email,
+    order_data: [orderBlock],
+    paymentId: razorpay_payment_id,
+    amount: totalAmount
+  });
+}
+
 
     
    // ✅ UPDATE INVENTORY (REAL deduction)

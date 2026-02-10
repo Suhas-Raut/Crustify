@@ -3,6 +3,9 @@ const router = express.Router();
 const Inventory = require("../models/Inventory");
 const fetchdetails = require("../middleware/fetchdetails");
 const isAdmin = require("../middleware/isAdmin");
+const sendOrderMail = require("../utils/sendMail");
+const Order = require("../models/Orders");
+
 
 router.get("/inventory", fetchdetails, isAdmin, async (req, res) => {
   try {
@@ -24,7 +27,6 @@ router.get("/inventory", fetchdetails, isAdmin, async (req, res) => {
 
 
 
-const Order = require("../models/Orders");
 
 // 3️⃣ GET ALL ORDERS
 router.get("/orders", fetchdetails, isAdmin, async (req, res) => {
@@ -38,35 +40,6 @@ router.get("/orders", fetchdetails, isAdmin, async (req, res) => {
 });
 
 
-// 4️⃣ UPDATE ORDER STATUS
-router.put("/order/:id", fetchdetails, isAdmin, async (req, res) => {
-
-  const { status } = req.body;
-
-  const order = await Order.findByIdAndUpdate(
-    req.params.id,
-    { status },
-    { new: true }
-  );
-
-  if (status === "In Kitchen") {
-    await sendMail(
-      order.userEmail,
-      "👨‍🍳 Order in Kitchen",
-      "Your order is being prepared."
-    );
-  }
-
-  if (status === "Sent to Delivery") {
-    await sendMail(
-      order.userEmail,
-      "🚚 Out for Delivery",
-      "Your order is on the way!"
-    );
-  }
-
-  res.json({ success: true, order });
-});
 
 
 // 5️⃣ DASHBOARD STATS
@@ -113,45 +86,31 @@ router.post("/inventory", fetchdetails, isAdmin, async (req, res) => {
 
 
 // Sending email function
-const sendMail = require("../utils/mailer");
-const Order = require("../models/Orders");
-
 router.put("/order-status", fetchdetails, isAdmin, async (req, res) => {
-  try {
-    const { userEmail, orderIndex, status } = req.body;
+  const { userEmail, orderId, status } = req.body;
 
-    const userOrders = await Order.findOne({ email: userEmail });
-    if (!userOrders) {
-      return res.status(404).json({ success: false });
-    }
+  const user = await Order.findOne({ email: userEmail });
+  if (!user) return res.status(404).json({ success: false });
 
-    // update status inside meta object
-    userOrders.order_data[orderIndex][0].status = status;
-    await userOrders.save();
+  const order = user.order_data.find(o => o[0].orderId === orderId);
+  if (!order) return res.status(404).json({ success: false });
 
-    // 📧 EMAIL NOTIFICATIONS
-    if (status === "In Kitchen") {
-      await sendMail(
-        userEmail,
-        "👨‍🍳 Order in Kitchen",
-        "Your order is now being prepared."
-      );
-    }
+  order[0].status = status;
+  await user.save();
 
-    if (status === "Out for Delivery") {
-      await sendMail(
-        userEmail,
-        "🚚 Out for Delivery",
-        "Your order is on the way!"
-      );
-    }
-
-    res.json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false });
+  // 📧 EMAIL (NOW WORKS)
+  if (status === "In Kitchen") {
+    await sendOrderMail(userEmail, "👨‍🍳 Order in Kitchen", "Your food is being prepared!");
   }
+
+  if (status === "Out for Delivery") {
+    await sendOrderMail(userEmail, "🚚 Out for Delivery", "Your order is on the way!");
+  }
+
+  res.json({ success: true });
 });
+
+
 
 
 
