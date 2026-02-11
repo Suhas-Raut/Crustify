@@ -30,8 +30,10 @@ The objective was to simulate a real restaurant ordering ecosystem instead of a 
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ### Hosting
-![Netlify](https://img.shields.io/badge/Hosted%20On-Netlify-00C7B7?logo=netlify&logoColor=white)
-![Render](https://img.shields.io/badge/API%20Hosted%20On-Render-46E3B7?logo=render&logoColor=white)
+![API Hosted On](https://img.shields.io/badge/API%20Hosted%20On-Render-46E3B7?logo=render&logoColor=white)
+![Frontend Hosted On](https://img.shields.io/badge/Frontend%20Hosted%20On-Vercel-000000?logo=vercel&logoColor=white)
+
+
 
 ---
 
