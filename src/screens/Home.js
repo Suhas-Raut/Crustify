@@ -343,7 +343,7 @@ const [nonVegToppings, setNonVegToppings] = useState([]);
           <h3 className="tee2">Build Your Own Pizza 🍕</h3>
           <hr />
 
-          <h5>Choose Pizza Base</h5>
+          <h5 className="custom">Choose Pizza Base</h5>
           <select
               className="form-select mb-3"
               value={selectedBase}
@@ -356,7 +356,7 @@ const [nonVegToppings, setNonVegToppings] = useState([]);
             <option>Fresh Pan</option>
           </select>
 
-          <h5>Choose Sauce</h5>
+          <h5 className="custom">Choose Sauce</h5>
           <select
               className="form-select mb-3"
               value={selectedSauce}
@@ -369,7 +369,7 @@ const [nonVegToppings, setNonVegToppings] = useState([]);
             <option>Pesto</option>
           </select>
 
-          <h5>Choose Cheese</h5>
+          <h5 className="custom">Choose Cheese</h5>
           <select
             className="form-select mb-3"
             value={selectedCheese}
@@ -382,7 +382,7 @@ const [nonVegToppings, setNonVegToppings] = useState([]);
             <option>Vegan Cheese</option>
           </select>
 
-          <h5>
+          <h5 className="custom">
   {pizzaType === "veg" ? "Select Veg Toppings" : "Select Toppings"}
 </h5>
 

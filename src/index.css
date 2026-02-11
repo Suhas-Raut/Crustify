@@ -569,3 +569,7 @@ input {
 .badge-nonveg {
   background: #e74c3c;
 }
+
+.custom {
+  color: #000000;
+}
